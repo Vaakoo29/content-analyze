@@ -1,5 +1,7 @@
 from tika import parser
 import pandas as pd
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 
 # Словари для проверки определенных тендеций
 economics = ['business', 'economic', 'economics', 'development', 'resources', 'exploitation', 'project', 'projects']
@@ -28,3 +30,16 @@ for tendency in tendencies:
     
     print(tendency)
     print(pd.DataFrame(rows, columns=df_columns))
+    out_df = pd.DataFrame(rows, columns=df_columns)
+
+
+text = ''
+for i in content:
+    if i in economics or i in ecology or i in politics or i in humans:
+        text = text + i + ' '
+
+cloud = WordCloud().generate(text)
+plt.imshow(cloud)
+plt.axis('off')
+plt.show()
+plt.close()

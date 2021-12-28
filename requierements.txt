@@ -1,2 +1,4 @@
 tika
 pandas
+wordcloud
+matplotlib
