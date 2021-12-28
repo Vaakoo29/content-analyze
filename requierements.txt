@@ -1,4 +1,0 @@
-tika
-pandas
-wordcloud
-matplotlib
