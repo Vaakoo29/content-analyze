@@ -25,6 +25,7 @@ country = input("Выберите страну: ")
 country = countries[country.lower()]
 
 raw = parser.from_file('strategies/' + country +'.pdf')
+
 content = raw['content'].split()
 
 df_columns = ['word', 'frequency']
@@ -40,6 +41,17 @@ if country == 'russia':
         print(pd.DataFrame(rows, columns=df_columns))
         out_df = pd.DataFrame(rows, columns=df_columns)
 
+    text = ''
+    for i in content:
+        if i in economics_ru or i in ecology_ru or i in politics_ru or i in humans_ru:
+            text = text + i + ' '
+
+    cloud = WordCloud().generate(text)
+    plt.imshow(cloud)
+    plt.axis('off')
+    plt.show()
+    plt.close()
+
 else:
 
     for tendency in tendencies:
@@ -52,13 +64,13 @@ else:
         out_df = pd.DataFrame(rows, columns=df_columns)
 
 
-text = ''
-for i in content:
-    if i in economics or i in ecology or i in politics or i in humans:
-        text = text + i + ' '
+    text = ''
+    for i in content:
+        if i in economics or i in ecology or i in politics or i in humans:
+            text = text + i + ' '
 
-cloud = WordCloud().generate(text)
-plt.imshow(cloud)
-plt.axis('off')
-plt.show()
-plt.close()
+    cloud = WordCloud().generate(text)
+    plt.imshow(cloud)
+    plt.axis('off')
+    plt.show()
+    plt.close()
