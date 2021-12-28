@@ -20,12 +20,11 @@ raw = parser.from_file('strategies/' + country +'.pdf')
 content = raw['content'].split()
 
 df_columns = ['word', 'frequency']
-rows = []
 
 for tendency in tendencies:
+    rows = []
     for word in tendency:
         rows.append({'word': word, 'frequency': content.count(word)})
     
     print(tendency)
-    out_df = pd.DataFrame(rows, columns=df_columns)
-    print(out_df)
+    print(pd.DataFrame(rows, columns=df_columns))
