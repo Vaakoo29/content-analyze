@@ -27,68 +27,69 @@ tendencies = [economics, humans, politics, ecology]
 tendencies_ru = [economics_ru, humans_ru, politics_ru, ecology_ru]
 
 # Страны
-countries = {'китай':'china', 'дания':'denmark', 'канада': 'canada', 'финляндия':'finland', 'исландия':'iceland', 'норвегия':'norway', 'швеция':'sweden', 'сша':'usa', 'россия':'russia'}
+# countries = {'китай':'china', 'дания':'denmark', 'канада': 'canada', 'финляндия':'finland', 'исландия':'iceland', 'норвегия':'norway', 'швеция':'sweden', 'сша':'usa', 'россия':'russia'}
 
-print("Cтраны, входящие в Арктический Союз: Канада, Китай, Дания, Финляндия, Исландия, Норвегия, Швеция, США, Россия")
-country = input("Выберите страну: ")
-country = countries[country.lower()]
+# print("Cтраны, входящие в Арктический Союз: Канада, Китай, Дания, Финляндия, Исландия, Норвегия, Швеция, США, Россия")
+# country = input("Выберите страну: ")
+# country = countries[country.lower()]
 
-raw = parser.from_file('strategies/' + country +'.pdf')
+# ссылка к файлу
+raw = parser.from_file('')
 
 content = raw['content'].split()
 
 df_columns = ['word', 'frequency']
 
-if country == 'russia':
+# if country == 'russia':
 
-    for tendency in tendencies_ru:
-        rows = []
-        for word in tendency:
-            rows.append({'word': word, 'frequency': content.count(word)})
+for tendency in tendencies_ru:
+    rows = []
+    for word in tendency:
+        rows.append({'word': word, 'frequency': content.count(word)})
     
-        print(tendency)
-        print(pd.DataFrame(rows, columns=df_columns))
-        out_df = pd.DataFrame(rows, columns=df_columns)
+    print(tendency)
+    print(pd.DataFrame(rows, columns=df_columns))
+    out_df = pd.DataFrame(rows, columns=df_columns)
 
-    text = ''
-    for i in content:
+text = ''
+for i in content:
 
-        stemmed_token = stemmer.stem(i)
+    stemmed_token = stemmer.stem(i)
 
-        if stemmed_token in economics_ru.keys():
-            text = text + economics_ru[stemmed_token] + ' '
-        elif stemmed_token in ecology_ru.keys():
-            text = text + ecology_ru[stemmed_token] + ' '
-        elif stemmed_token in politics_ru.keys():
-            text = text + politics_ru[stemmed_token] + ' '
-        elif stemmed_token in humans_ru.keys():
-            text = text + humans_ru[stemmed_token] + ' '
+    if stemmed_token in economics_ru.keys():
+        text = text + economics_ru[stemmed_token] + ' '
+    elif stemmed_token in ecology_ru.keys():
+        text = text + ecology_ru[stemmed_token] + ' '
+    elif stemmed_token in politics_ru.keys():
+        text = text + politics_ru[stemmed_token] + ' '
+    elif stemmed_token in humans_ru.keys():
+        text = text + humans_ru[stemmed_token] + ' '
 
-    cloud = WordCloud().generate(text)
-    plt.imshow(cloud)
-    plt.axis('off')
-    plt.show()
-    plt.close()
+cloud = WordCloud().generate(text)
+plt.imshow(cloud)
+plt.axis('off')
+plt.show()
+plt.close()
 
-else:
+# else:
 
-    for tendency in tendencies:
-        rows = []
-        for word in tendency:
-            rows.append({'word': word, 'frequency': content.count(word)})
+#     for tendency in tendencies:
+#         rows = []
+#         for word in tendency:
+#             rows.append({'word': word, 'frequency': content.count(word)})
     
-        print(tendency)
-        print(pd.DataFrame(rows, columns=df_columns))
-        out_df = pd.DataFrame(rows, columns=df_columns)
+#         print(tendency)
+#         print(pd.DataFrame(rows, columns=df_columns))
+#         out_df = pd.DataFrame(rows, columns=df_columns)
 
 
-    text = ''
-    for i in content:
-        if i in economics or i in ecology or i in politics or i in humans:
-            text = text + i + ' '
+#     text = ''
+#     for i in content:
+#         if i in economics or i in ecology or i in politics or i in humans:
+#             text = text + i + ' '
 
-    cloud = WordCloud().generate(text)
-    plt.imshow(cloud)
-    plt.axis('off')
-    plt.show()
-    plt.close()
+#     cloud = WordCloud().generate(text)
+#     plt.imshow(cloud)
+#     plt.axis('off')
+#     plt.show()
+#     plt.close()
