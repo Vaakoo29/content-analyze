@@ -34,7 +34,7 @@ tendencies_ru = [economics_ru, humans_ru, politics_ru, ecology_ru]
 # country = countries[country.lower()]
 
 # ссылка к файлу
-raw = parser.from_file('')
+raw = parser.from_file('/Users/sarantuaa/Documents/content-analyze/strategies/russia.pdf')
 
 content = raw['content'].split()
 
@@ -44,8 +44,15 @@ df_columns = ['word', 'frequency']
 
 for tendency in tendencies_ru:
     rows = []
-    for word in tendency:
-        rows.append({'word': word, 'frequency': content.count(word)})
+    for word in tendency.keys():
+
+        count = 0
+        for i in content:
+            stemme_token = stemmer.stem(i)
+            if stemme_token == word:
+                count+=1
+    
+        rows.append({'word': tendency[word], 'frequency': count})
     
     print(tendency)
     print(pd.DataFrame(rows, columns=df_columns))
